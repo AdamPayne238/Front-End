@@ -59,7 +59,6 @@ export const fetchUserInfo = () => dispatch => {
         .catch(error => dispatch({ type: FETCH_USER_FAIL, payload: error.response}))
 };
 
-
 //AXIOS_POST
 export const postUser = (obj, props) => dispatch => {
     // dispatch({ type: AXIOS_POST });
@@ -103,22 +102,3 @@ export const postLogin = (obj,props) => dispatch => {
             dispatch({ type: LOGIN_POST, payload: "Wrong Email or Password"}
         )})
 }
-
-
-
-    //FETCH_USER_START
-//     dispatch({ type: FETCH_USER_START });
-//     axiosWithAuth()
-//         .get("/users/getuserinfo")
-//         //FETCH_USER_SUCCESS
-//         .then(response => {
-//             console.log("Get Response", response);
-//             dispatch({ type: FETCH_USER_SUCCESS, payload: response.data});
-//         })
-//         //FETCH_USER_FAIL
-//         .catch(error => dispatch({ type: FETCH_USER_FAIL, payload: error.response}))
-// };
-
-
-
-//AXIOS_PUT
