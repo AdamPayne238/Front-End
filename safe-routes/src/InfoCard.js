@@ -40,7 +40,7 @@ const InfoCard = (props) => {
         .get(`https://saferoutes-ds.herokuapp.com/predict/${lat}/${lng}/${year}-${currentMonth}-${day}%2016:33:20/`)
         .then(response=>{
             console.log(response)
-            let percentage = response.data * 10
+            let percentage = response.data * 100
             setProb(`Probability Of Having An Accident At This Time Is ${percentage.toFixed(2)}%`)
         })
     },[dependency])
