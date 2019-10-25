@@ -8,25 +8,29 @@ import {
     Card, CardText, CardBody,
     CardTitle, Button
   } from 'reactstrap';
+import { Btn } from "./Forms/formsStyle";
 
 const Users = (props) => {
 
     const [ user, setUser ] = useState([])
     const [ editingUser, setEditingUser ] = useState()
+    const [newArray, setNewArray] = ([])
+
 
     useEffect(() => {
-        props.fetchAll()
+        // props.fetchAll()
+
         //MOVED TO ACTIONS
-        // axiosWithAuth()
-        // .get("/users/users/all")
-        // .then(response => {
-        //     // .data?
-        //     console.log("User Get Res", response.data)
-        //     setUser(response.data)
-        // })
-        // .catch(error => {
-        //     console.log("User Get", error)
-        // })
+        axiosWithAuth()
+        .get("/users/users/all")
+        .then(response => {
+            // .data?
+            console.log("User Get Res", response.data)
+            setUser(response.data)
+        })
+        .catch(error => {
+            console.log("User Get", error)
+        })
         
     }, [props.userDelete,editingUser])
 
@@ -62,6 +66,22 @@ const Users = (props) => {
         // })
     },[])
 
+    function fetchUsers(){
+        if(props.routeData.username == "admin"){
+            props.routeData.map(userObj => {
+                return (
+                <StyledCard style={{background:"#16416C"}} key={userObj.userid} >
+                    <CardTitle style={{fontSize:"2rem",textTransform:"uppercase"}}>{userObj.username}</CardTitle>
+                    <CardText style={{fontSize:"1.5rem",textTransform:"uppercase"}}>{userObj.userid}</CardText>
+                    <CardText style={{fontSize:"1.5rem",textTransform:"uppercase"}}>{userObj.primaryemail}</CardText>
+                
+                    <Button style={{margin: "5px"}} onClick={() => editUser(userObj)}>Edit</Button>
+                    <Button style={{margin: "5px"}} onClick={() => deleteUser(userObj.userid.toString())}>Delete</Button>
+                </StyledCard>
+            )})
+        }
+    }
+    
     return (
         <UsersContainer>
             {(props.routeData.username === "admin" && editingUser) ? (<AddUser 
@@ -75,7 +95,12 @@ const Users = (props) => {
             /> */}
 
             <StyledUser>
-            {props.allUsers.map(userObj => {
+                {/* <Btn onClick={(e)=>{
+                    e.preventDefault();
+                    fetchUsers();
+                    console.log(props.routeData.username)
+                }}>GET ALL USERS</Btn> */}
+                {user.map(userObj => {
                 return (
                 <StyledCard style={{background:"#16416C"}} key={userObj.userid} >
                     <CardTitle style={{fontSize:"2rem",textTransform:"uppercase"}}>{userObj.username}</CardTitle>

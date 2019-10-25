@@ -5,6 +5,7 @@ import axios from "axios"
 
 const InfoCard = (props) => {
     const [activeTab,setActiveTab] = useState('1');
+    const [prob, setProb] = useState("Loading...")
 
     const toggle = tab => {
         if(activeTab !== tab) setActiveTab(tab);
@@ -25,16 +26,29 @@ const InfoCard = (props) => {
     },[dependency])
 
     useEffect(()=>{
+        let year = new Date().getFullYear();
+        let month = new Date().getMonth();
+        let currentMonth = 0
+        if(month <= 9){
+            currentMonth = `0` + month
+        } else{
+            currentMonth = month
+        }
+        let day = new Date().getDate()
+
         axios
-        .get("https://saferoutes-ds.herokuapp.com/predict/33.3427/-118.3258/2019-10-24%2016:33:20/")
+        .get(`https://saferoutes-ds.herokuapp.com/predict/${lat}/${lng}/${year}-${currentMonth}-${day}%2016:33:20/`)
         .then(response=>{
             console.log(response)
+            let percentage = response.data * 10
+            setProb(`Probability Of Having An Accident At This Time Is ${percentage.toFixed(2)}%`)
         })
-    },[])
+    },[dependency])
 
     return (
         <div>
             <h3>{props.address}</h3>
+            <h5>{prob}</h5>
             <Nav tabs>
                 <NavItem>
                     <NavLink

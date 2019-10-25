@@ -1,12 +1,12 @@
 import React,{useState} from "react";
 import {Btn, FormContainer, Label, Input, LinkContainer, StyledLink, ParentContainer, Form, SubTitle} from "./formsStyle";
-import * as yup from "yup"
-import SideImage from "./SideImage"
-import Logo from "../Logo/Logo"
+import * as yup from "yup";
+import SideImage from "./SideImage";
+import Logo from "../Logo/Logo";
 import { connect } from "react-redux";
 import { postUser } from "../actions";
-import axios from "axios"
-import {postLogin} from "../actions"
+import axios from "axios";
+import {postLogin} from "../actions";
 import logo from "../../assets/logo.png";
 
 function SignUp(props){
@@ -40,22 +40,22 @@ function SignUp(props){
 
     const Submit = (e) => {
         e.preventDefault();
-    //     if (password === confirm) {
-    //     schema.validate(formValues)
-    //         .then(valid=>{
-    //             if(valid){
-    //                 axios
-    //                 .post("https://detman-saferoutes.herokuapp.com/createnewuser", formValues)
-    //                 .then(()=>{
-    //                     props.postLogin(formValues,props)
-    //                 })
-    //                 .catch(error => console.log("Post Error", error.response))
-    //         }})
+        if (password === confirm) {
+        schema.validate(formValues)
+            .then(valid=>{
+                if(valid){
+                    axios
+                    .post("https://detman-saferoutes.herokuapp.com/createnewuser", formValues)
+                    .then(()=>{
+                        props.postLogin(formValues,props)
+                    })
+                    .catch(error => console.log("Post Error", error.response))
+            }})
 
-    // } else {
-    //     alert("Password doesn't match")
-    // }}
-    }
+    } else {
+        alert("Password doesn't match")
+    }}
+    
     return(
         <ParentContainer>
             <FormContainer>
@@ -86,7 +86,7 @@ function SignUp(props){
             <SideImage></SideImage>
         </ParentContainer>
     )
-}
+    }
 
 const mapStateToProps = state => {
     return {
